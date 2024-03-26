@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Open_Sans } from "next/font/google";
+import { twMerge } from "tailwind-merge";
+import Navigation from "@/ui/organisms/Navigation/Navigation";
 import "./globals.css";
+import Footer from "@/ui/organisms/Footer/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+export const openSans = Open_Sans({
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-opensans",
+});
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -15,8 +22,14 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={inter.className}>{children}</body>
+		<html lang="en" className={twMerge("light", openSans.variable)}>
+			<body className={twMerge("bg-bg text-custom-text-color")}>
+				<Navigation />
+				<main className="mx-auto flex min-h-screen max-w-[1280px] flex-col items-center justify-between">
+					{children}
+				</main>
+				<Footer />
+			</body>
 		</html>
 	);
 }
